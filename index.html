@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SELVA BLOCKCHAIN</title>
+	<link rel="shortcut icon" href="https://selva.eco.br/app/components/imgs/favicon.ico" type="image/x-icon">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<!-- ========     LIB WEB3JS          ======== -->
+	<script src="./assets/js/web3.min.js"></script>
+	<link rel="stylesheet" href="./assets/css/iziToast.min.css">
+</head>
+<body>
+	<!-- Spinner -->
+	<div id="load">
+		<div class="sk-cube-grid" id="spinner">
+			<div class="sk-cube sk-cube1"></div>
+			<div class="sk-cube sk-cube2"></div>
+			<div class="sk-cube sk-cube3"></div>
+			<div class="sk-cube sk-cube4"></div>
+			<div class="sk-cube sk-cube5"></div>
+			<div class="sk-cube sk-cube6"></div>
+			<div class="sk-cube sk-cube7"></div>
+			<div class="sk-cube sk-cube8"></div>
+			<div class="sk-cube sk-cube9"></div>
+		</div>
+	</div>
+
+	<div class="container" id="container">
+		<header class="d-flex flex-wrap justify-content-center py-3 mb-4">
+			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+				<img src="./assets/image/icon-128x128.png" style="width: 20%;" alt="SELVA">
+				<span class="fs-3 mx-3" style="line-height: 35px;"><span class="fs-1 fw-bold fst-italic">SELVA</span> <br> Amazonic Blockchain Ecosystem</span>
+			</a>
+			<ul class="nav nav-underline mt-4">
+				<li class="nav-item">
+					<button onclick="showCadastro()" id="linkCadastro" class="nav-link active" aria-current="page">
+						Cadastro
+					</button>
+				</li>
+				<li class="nav-item"><button onclick="showConsulta()" id="linkConsulta" class="nav-link">Consulta</button></li>
+				<li class="nav-item"><button onclick="showSobre()" id="linkSobre" class="nav-link">Sobre</button></li>
+			</ul>
+		</header>
+
+		<section id="Cadastro" class="Cadastro col-md-12">
+			<div class="row mt-5">
+				<div class="col-md-6 imgBlockchain">
+					<img src="./assets/image/blockchain-unscreen.gif" style="width: 100%;" alt="Blockchain">
+				</div>
+				<div class="col-md-6">
+					<div class="title text-center greeDark mb-7">
+						<h1>Cadastro de Usuário</h1>
+					</div>
+					<form class="row g-3 mt-5">
+						<div class="col-md-6">
+							<label for="name" class="form-label">Nome</label>
+							<input type="name" class="form-control" id="name">
+						</div>
+						<div class="col-md-6">
+							<label for="lastname" class="form-label">Sobrenome</label>
+							<input type="text" class="form-control" id="lastname">
+						</div>
+						<div class="col-6">
+							<label for="cpf" class="form-label">CPF</label>
+							<input type="text" class="form-control" id="cpf" maxlength="14" oninput="regexCPF(this.value)">
+						</div>
+						<div class="col-md-6">
+							<label for="phone" class="form-label">Telefone</label>
+							<input type="tel" class="form-control" id="phone" maxlength="15" oninput="regexTelefone(this.value)">
+						</div>
+						<div class="col-md-12">
+							<label for="hash" class="form-label">Hash</label>
+							<input type="text" class="form-control" id="hash" onfocus="stringToHash()" readonly>
+						</div>
+						<div class="col-md-12">
+							<div id="map" style="width: 100%; height: 150px; border-radius: 12px;"></div>
+							<input type="hidden" name="latitude" id="latitude">
+							<input type="hidden" name="longitude" id="longitude">
+						</div>
+						<div class="col-12 d-flex justify-content-between">
+							<button type="button" id="CadastroButton" class="btn btn-success" data-swal-template="#cadastro">Cadastrar</button>
+							<button class="btn btn-dark" id="locationButton">Localização Atual</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+		
+		<section id="Consulta" class="Consulta col-md-12">
+			<div class="row mt-5">
+				<div class="col-md-6 imgBlockchain">
+					<img src="./assets/image/Blockchain-Color.gif" style="width: 100%;" alt="Blockchain">
+				</div>
+				<!-- Input Pesquisa Usuário -->
+				<div class="col-md-6" id="ConsultaPesquisa">
+					<div class="title text-center greeDark mb-7">
+						<h1>Consulta</h1>
+					</div>
+					<form class="row g-3 mt-5">
+						<div class="col-md-12">
+							<label for="hashId" class="form-label">Hash</label>
+							<input type="text" class="form-control" id="hashId">
+						</div>
+						<div class="col-12">
+							<button type="button" id="PesquisaButton" class="btn btn-success">Pesquisar</button>
+						</div>
+					</form>
+					<div class="col-md-12">
+						<div id="mapConsulta" style="width: 100%; height: 150px; border-radius: 12px;"></div>
+					</div>
+				</div>
+				<!-- Informações do Usuário -->
+				<div class="col-md-6" id="informacaousuario">
+					<div class="title text-start greeDark mb-7">
+						<p style="cursor: pointer;" onclick="navConsulta(2)"><i class="bi bi-arrow-left"></i> voltar</p>
+					</div>
+					<form class="row g-3 mt-5">
+						<div class="col-md-6">
+							<label for="nameConsulta" class="form-label">Nome</label>
+							<input type="text" class="form-control" id="nameConsulta" readonly>
+						</div>
+						<div class="col-md-6">
+							<label for="lastnameConsulta" class="form-label">Sobrenome</label>
+							<input type="text" class="form-control" id="lastnameConsulta" readonly>
+						</div>
+						<div class="col-6">
+							<label for="cpfConsulta" class="form-label">CPF</label>
+							<input type="text" class="form-control" id="cpfConsulta" maxlength="14" readonly>
+						</div>
+						<div class="col-md-6">
+							<label for="phoneConsulta" class="form-label">Telefone</label>
+							<input type="tel" class="form-control" id="phoneConsulta" maxlength="15" readonly>
+						</div>
+						<div class="col-md-12">
+							<label for="hashConsulta" class="form-label">Hash</label>
+							<input type="text" class="form-control" id="hashConsulta" readonly>
+						</div>
+						<div class="col-md-12">
+							<label for="produtoLabel" class="form-label">Produto</label>
+							<input type="text" class="form-control" id="produtoLabel">
+						</div>
+						<div class="col-12">
+							<button type="button" id="UpProdutorButton" onclick="upProdutor()" class="btn btn-primary">Tornar Produtor</button>
+						</div>
+					</form>
+				</div>
+				<!--  -->
+				<div class="col-md-6" id="cadastroProdutor">
+					<div class="title text-start greeDark mb-7">
+						<p style="cursor: pointer;" onclick="navConsulta(3)"><i class="bi bi-arrow-left"></i> voltar</p>
+					</div>
+					<form class="row g-3 mt-5">
+						<div class="col-md-6">
+							<label for="nameCompany" class="form-label">Nome da Empresa</label>
+							<input type="text" class="form-control" id="nameCompany">
+						</div>
+						<div class="col-md-6">
+							<label for="cooperative" class="form-label">Cooperativa</label>
+							<input type="text" class="form-control" id="cooperative">
+						</div>
+						<div class="col-6">
+							<label for="cnpj" class="form-label">CNPJ</label>
+							<input type="text" class="form-control" id="cnpj" maxlength="18" oninput="regexCNPJ(this.value)">
+						</div>
+						<div class="col-md-6">
+							<label for="product" class="form-label">Produto</label>
+							<input type="text" class="form-control" id="product">
+						</div>
+						<div class="col-md-6">
+							<label for="valueProduct" class="form-label">Valor do Produto</label>
+							<input type="number" class="form-control" id="valueProduct">
+						</div>
+						<div class="col-md-6">
+							<label for="stock" class="form-label">Estoque</label>
+							<input type="number" class="form-control" id="stock">
+						</div>
+						<div class="col-md-6">
+							<label for="uniMedida" class="form-label">Unidade de Medida</label>
+							<input type="text" class="form-control" id="uniMedida">
+						</div>
+						<div class="col-12">
+							<button type="button" id="UpgradeProdutorButton" class="btn btn-success" data-swal-template="#UpgradeProdutorButton">Tornar Produtor</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<section id="Sobre" class="Sobre col-md-12">
+			<div class="row text-center fs-2" style="margin-top: 20%;">
+				<p>Sistema Estruturado Legal de Valores Amazônicos - SELVA</p>
+				<p>Ecossistema Blockchain Amazônico</p>
+			</div>
+		</section>
+	</div>
+
+	<!-- ========     JQUERY          ======== -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="./assets/js/iziToast.min.js" type="text/javascript"></script>
+	<!-- ========     NOSSAS FUNÇÕES          ======== -->
+	<script type="module" src="./assets/js/main.js"></script>
+	<script>
+		/* Regex CPF */
+		function regexCPF(val) {
+			let newValue = val.replace(/\D/g, '')
+				.replace(/(\d{3})(\d)/, '$1.$2')
+				.replace(/(\d{3})(\d)/, '$1.$2')
+				.replace(/(\d{3})(\d)/, '$1-$2')
+				.replace(/(-\d{2})\d+?$/, '$1');
+
+				return document.getElementById("cpf").value = newValue;
+		}
+
+		/* Regex CNPJ */
+		function regexCNPJ(val) {
+			let newValue = val.replace(/\D/g, '')
+				.replace(/(\d{2})(\d)/, '$1.$2')
+				.replace(/(\d{3})(\d)/, '$1.$2')
+				.replace(/(\d{3})(\d)/, '$1/$2')
+				.replace(/(\d{4})(\d)/, '$1-$2')
+				.replace(/(-\d{2})\d+?$/, '$1');
+
+				return document.getElementById("cnpj").value = newValue;
+		}
+
+		/* Regex Telefone */
+		function regexTelefone(val) {
+			let newValue = val.replace(/\D/g, '')
+								.replace(/(\d{2})(\d)/, '($1) $2')
+								.replace(/(\d{5})(\d)/, '$1-$2')
+								.replace(/(-\d{4})\d+?$/, '$1');
+
+				return document.getElementById("phone").value = newValue;
+		}
+
+		/* Show Cadastro */
+		function showCadastro() {
+			document.getElementById("Consulta").style.display = "none";
+			document.getElementById("linkConsulta").classList.remove("active");
+			document.getElementById("Sobre").style.display = "none";
+			document.getElementById("linkSobre").classList.remove("active");
+
+			document.getElementById("Cadastro").style.display = "block";
+			document.getElementById("linkCadastro").classList.add("active");
+		}
+
+		/* Show Consulta */
+		function showConsulta() {
+			document.getElementById("Cadastro").style.display = "none";
+			document.getElementById("linkCadastro").classList.remove("active");
+			document.getElementById("Sobre").style.display = "none";
+			document.getElementById("linkSobre").classList.remove("active");
+
+			document.getElementById("Consulta").style.display = "block";
+			document.getElementById("linkConsulta").classList.add("active");
+
+			document.getElementById("ConsultaPesquisa").style.display = "block";
+            document.getElementById("informacaousuario").style.display = "none";
+			document.getElementById("cadastroProdutor").style.display = "none";
+		}
+
+		/* Show Sobre */
+		function showSobre() {
+			document.getElementById("Cadastro").style.display = "none";
+			document.getElementById("linkCadastro").classList.remove("active");
+			document.getElementById("Consulta").style.display = "none";
+			document.getElementById("linkConsulta").classList.remove("active");
+
+			document.getElementById("Sobre").style.display = "block";
+			document.getElementById("linkSobre").classList.add("active");
+		}
+
+		/* Criptografia */
+		function stringToHash() {
+			if(document.getElementById("name").value.length == 0 || document.getElementById("lastname").value.length == 0 || document.getElementById("cpf").value.length == 0 || document.getElementById("phone").value.length == 0) {
+				iziToast.warning({
+					title: 'Aviso',
+					message: 'Preencha todos os campos...',
+				});
+			} else {
+				let string = document.getElementById("name").value + document.getElementById("lastname").value + document.getElementById("cpf").value + document.getElementById("phone").value;
+				let hash = 0;
+				if (string.length == 0) return hash;
+				for (i = 0; i < string.length; i++) {
+					char = string.charCodeAt(i);
+					hash = ((hash << 5) - hash) + char;
+					hash = hash & hash;
+				}
+				hash = String(hash);
+				hash = hash.replace("-", "");
+				hash = Number(hash);
+				return document.getElementById("hash").value = hash;
+			}
+		}
+
+		function upProdutor() {
+			document.getElementById("cadastroProdutor").style.display = "block";
+            document.getElementById("informacaousuario").style.display = "none";
+		}
+
+		function navConsulta(index) {
+			if(index == 2) {
+				document.getElementById("ConsultaPesquisa").style.display = "block";
+            	document.getElementById("informacaousuario").style.display = "none";
+			} else if(index == 3) {
+				document.getElementById("informacaousuario").style.display = "block";
+            	document.getElementById("cadastroProdutor").style.display = "none";
+			}
+		}
+	</script>
+</body>
+</html>
