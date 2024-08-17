@@ -107,6 +107,10 @@ body {
     color: #6b700c;
 }
 
+.grayDark {
+    color: rgb(71 85 105);
+}
+
 .nav-link {
     color: #6b700c;
 }
@@ -133,6 +137,6 @@ body {
     display: none;
 }
 
-#informacaousuario, #cadastroProdutor, #produtoLabel {
+#informacaousuario, #cadastroProdutor, #produtoLabel, #tableListAllUsers {
     display: none;
 }

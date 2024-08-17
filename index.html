@@ -28,6 +28,29 @@
 		</div>
 	</div>
 
+	<button type="button" id="modalButton" class="d-none" data-bs-toggle="modal" data-bs-target="#modalHash"></button>
+
+	<div class="modal fade modal-dialog-centered d-none" id="modalHash" tabindex="-1" aria-labelledby="modalHash" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="modalHash">Transação bem sucedida!</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Copie o hash para fazer consulta <br>
+					<span id="hashText"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary" id="copyHash">
+						Copiar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container" id="container">
 		<header class="d-flex flex-wrap justify-content-center py-3 mb-4">
 			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
@@ -51,10 +74,13 @@
 					<img src="./assets/image/blockchain-unscreen.gif" style="width: 100%;" alt="Blockchain">
 				</div>
 				<div class="col-md-6">
-					<div class="title text-center greeDark mb-7">
-						<h1>Cadastro de Usuário</h1>
+					<div class="title text-start greeDark mb-7">
+						<h1>Formulário de Cadastro</h1>
 					</div>
-					<form class="row g-3 mt-5">
+					<div class="title text-start grayDark mt-5">
+						<h4>Informações Pessoais</h4>
+					</div>
+					<form class="row g-3 mt-2">
 						<div class="col-md-6">
 							<label for="name" class="form-label">Nome</label>
 							<input type="name" class="form-control" id="name">
@@ -71,18 +97,32 @@
 							<label for="phone" class="form-label">Telefone</label>
 							<input type="tel" class="form-control" id="phone" maxlength="15" oninput="regexTelefone(this.value)">
 						</div>
-						<div class="col-md-12">
-							<label for="hash" class="form-label">Hash</label>
-							<input type="text" class="form-control" id="hash" onfocus="stringToHash()" readonly>
+						<div class="title text-start grayDark mt-5">
+							<h4>Endereço</h4>
 						</div>
-						<div class="col-md-12">
-							<div id="map" style="width: 100%; height: 150px; border-radius: 12px;"></div>
-							<input type="hidden" name="latitude" id="latitude">
-							<input type="hidden" name="longitude" id="longitude">
+						<div class="col-md-6">
+							<label for="cep" class="form-label">CEP</label>
+							<input type="text" class="form-control" id="cep" maxlength="9" oninput="regexCEP(this.value)">
 						</div>
-						<div class="col-12 d-flex justify-content-between">
+						<div class="col-md-6">
+							<label for="numberAddress" class="form-label">Número</label>
+							<input type="text" class="form-control" id="numberAddress">
+						</div>
+						<div class="col-md-6">
+							<label for="nameAddress" class="form-label">Endereço</label>
+							<input type="text" class="form-control" id="nameAddress">
+						</div>
+						<div class="col-md-6">
+							<label for="districtAddress" class="form-label">Bairro</label>
+							<input type="text" class="form-control" id="districtAddress">
+						</div>
+						<div class="col-md-6">
+							<label for="cityUfAddress" class="form-label">Cidade/UF</label>
+							<input type="text" class="form-control" id="cityUfAddress">
+						</div>
+						<input type="hidden" class="form-control" id="hash" readonly>
+						<div class="col-12 d-flex justify-content-end">
 							<button type="button" id="CadastroButton" class="btn btn-success" data-swal-template="#cadastro">Cadastrar</button>
-							<button class="btn btn-dark" id="locationButton">Localização Atual</button>
 						</div>
 					</form>
 				</div>
@@ -105,7 +145,8 @@
 							<input type="text" class="form-control" id="hashId">
 						</div>
 						<div class="col-12">
-							<button type="button" id="PesquisaButton" class="btn btn-success">Pesquisar</button>
+							<button type="button" id="PesquisaButton" class="btn btn-success">Pesquisar</button> ou
+							<button type="button" id="BuscaTodosUsers" class="btn btn-outline-secondary">Liste todos os usuários</button>
 						</div>
 					</form>
 					<div class="col-md-12">
@@ -117,7 +158,10 @@
 					<div class="title text-start greeDark mb-7">
 						<p style="cursor: pointer;" onclick="navConsulta(2)"><i class="bi bi-arrow-left"></i> voltar</p>
 					</div>
-					<form class="row g-3 mt-5">
+					<div class="title text-start grayDark mt-5">
+						<h4>Informações Pessoais</h4>
+					</div>
+					<form class="row g-3 mt-3">
 						<div class="col-md-6">
 							<label for="nameConsulta" class="form-label">Nome</label>
 							<input type="text" class="form-control" id="nameConsulta" readonly>
@@ -134,9 +178,32 @@
 							<label for="phoneConsulta" class="form-label">Telefone</label>
 							<input type="tel" class="form-control" id="phoneConsulta" maxlength="15" readonly>
 						</div>
+						<div class="title text-start grayDark mt-5">
+							<h4>Endereço</h4>
+						</div>
+						<div class="col-md-6">
+							<label for="cepConsulta" class="form-label">CEP</label>
+							<input type="text" class="form-control" id="cepConsulta" maxlength="9" readonly>
+						</div>
+						<div class="col-md-6">
+							<label for="numberAddressConsulta" class="form-label">Número</label>
+							<input type="text" class="form-control" id="numberAddressConsulta" readonly>
+						</div>
+						<div class="col-md-6">
+							<label for="nameAddressConsulta" class="form-label">Endereço</label>
+							<input type="text" class="form-control" id="nameAddressConsulta" readonly>
+						</div>
+						<div class="col-md-6">
+							<label for="districtAddressConsulta" class="form-label">Bairro</label>
+							<input type="text" class="form-control" id="districtAddressConsulta" readonly>
+						</div>
+						<div class="col-md-6">
+							<label for="cityUfAddressConsulta" class="form-label">Cidade/UF</label>
+							<input type="text" class="form-control" id="cityUfAddressConsulta" readonly>
+						</div>
 						<div class="col-md-12">
 							<label for="hashConsulta" class="form-label">Hash</label>
-							<input type="text" class="form-control" id="hashConsulta" readonly>
+							<input type="text" class="form-control" id="hashConsulta" style="cursor: pointer;" readonly>
 						</div>
 						<div class="col-md-12">
 							<label for="produtoLabel" class="form-label">Produto</label>
@@ -147,6 +214,8 @@
 						</div>
 					</form>
 				</div>
+				<!-- Tabela (lista de todos os usuários) -->
+				<div class="col-md-6" id="tableListAllUsers"></div>
 				<!--  -->
 				<div class="col-md-6" id="cadastroProdutor">
 					<div class="title text-start greeDark mb-7">
@@ -227,6 +296,31 @@
 				return document.getElementById("cnpj").value = newValue;
 		}
 
+		/* Regex CNPJ */
+		function regexCEP(val) {
+			let cepNumbers = val;
+			// let address = "";
+			let newValue = val.replace(/\D/g, '').replace(/(\d{5})(\d{3})/, '$1-$2');
+
+			if(cepNumbers.length == 8) {
+				fetch(`https://cep.awesomeapi.com.br/json/${cepNumbers}`, {
+					method: "GET"
+				})
+				.then(res => res.json())
+				.then(data => {
+					// address = `${data.address_type} ${data.address_name}, ${data.district}, ${data.city}/${data.state}`;
+					let cepInput = document.getElementById("cep").value = newValue;
+					let addressInput = document.getElementById("nameAddress").value = `${data.address_type} ${data.address_name}`;
+					let districtAddress = document.getElementById("districtAddress").value = data.district;
+					let cityUfAddress = document.getElementById("cityUfAddress").value = `${data.city}/${data.state}`;
+					return {
+						cepInput, addressInput, districtAddress, cityUfAddress
+					}
+				})
+				.catch(err => console.log("err", err))
+			}
+		}
+
 		/* Regex Telefone */
 		function regexTelefone(val) {
 			let newValue = val.replace(/\D/g, '')
@@ -305,10 +399,11 @@
 		function navConsulta(index) {
 			if(index == 2) {
 				document.getElementById("ConsultaPesquisa").style.display = "block";
-            	document.getElementById("informacaousuario").style.display = "none";
+				document.getElementById("informacaousuario").style.display = "none";
+				document.getElementById("tableListAllUsers").style.display = "none";
 			} else if(index == 3) {
 				document.getElementById("informacaousuario").style.display = "block";
-            	document.getElementById("cadastroProdutor").style.display = "none";
+				document.getElementById("cadastroProdutor").style.display = "none";
 			}
 		}
 	</script>

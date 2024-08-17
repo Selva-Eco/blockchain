@@ -2,242 +2,13 @@
 //endereco muda a cada deploy  
 //==============ALTERAR==============
 // export const endereco = '0x9aC37eec8C2Bb777dD77f5B78093D653C6CDF7e4';
-export const endereco = '0xBFE682cE7719d3c5FF5CcaFb7E94e0107B9ac3c7';
+export const endereco = '0x0adee9bd657127063ee4a60F8DB9CDFBa613777A';
 //ABI: o contrato vem no formato JSON para que possa ser interpretado
 //==============P/ ALTERAR, DEPENDE DA MODIFICAÇÃo DO CONTRATO PARA TESTE==============
 //dados(endereco e ABI) do contrato se matém inalterados após o DEPLOY, pois o contrato não poderá sofre mais alterações
 export const abi = [
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_id",
-				"type": "string"
-			}
-		],
-		"name": "getUser",
-		"outputs": [
-			{
-				"name": "userObtido",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [],
-		"name": "allUsers",
-		"outputs": [
-			{
-				"name": "length",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "productor",
-		"outputs": [
-			{
-				"name": "idAddressUser",
-				"type": "string"
-			},
-			{
-				"name": "nameCompany",
-				"type": "string"
-			},
-			{
-				"name": "cnpj",
-				"type": "string"
-			},
-			{
-				"name": "cooperative",
-				"type": "string"
-			},
-			{
-				"name": "product",
-				"type": "string"
-			},
-			{
-				"name": "valueProduct",
-				"type": "uint256"
-			},
-			{
-				"name": "stock",
-				"type": "uint256"
-			},
-			{
-				"name": "unitMeasurement",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_id",
-				"type": "string"
-			}
-		],
-		"name": "getProductor",
-		"outputs": [
-			{
-				"name": "productorObtido",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"name": "_numberPhone",
-				"type": "string"
-			},
-			{
-				"name": "_cpf",
-				"type": "string"
-			},
-			{
-				"name": "_coordinates",
-				"type": "string"
-			},
-			{
-				"name": "_idAddress",
-				"type": "string"
-			}
-		],
-		"name": "registerUser",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_idAddressUser",
-				"type": "string"
-			},
-			{
-				"name": "_nameCompany",
-				"type": "string"
-			},
-			{
-				"name": "_CNPJ",
-				"type": "string"
-			},
-			{
-				"name": "_cooperative",
-				"type": "string"
-			},
-			{
-				"name": "_product",
-				"type": "string"
-			},
-			{
-				"name": "_valueProduct",
-				"type": "uint256"
-			},
-			{
-				"name": "_stock",
-				"type": "uint256"
-			},
-			{
-				"name": "_unitMeasurement",
-				"type": "string"
-			}
-		],
-		"name": "upProductor",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "allProductors",
-		"outputs": [
-			{
-				"name": "length",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "user",
-		"outputs": [
-			{
-				"name": "idAddress",
-				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "numberPhone",
-				"type": "string"
-			},
-			{
-				"name": "cpf",
-				"type": "string"
-			},
-			{
-				"name": "coordinates",
-				"type": "string"
-			},
-			{
-				"name": "createDate",
-				"type": "string"
-			},
-			{
-				"name": "statusAccount",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -246,26 +17,18 @@ export const abi = [
 		"inputs": [
 			{
 				"indexed": false,
-				"name": "name",
+				"internalType": "string",
+				"name": "nameCompany",
 				"type": "string"
 			},
 			{
 				"indexed": false,
-				"name": "numberPhone",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "cpf",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "coordinates",
+				"internalType": "string",
+				"name": "cooperative",
 				"type": "string"
 			}
 		],
-		"name": "nUser",
+		"name": "nProductor",
 		"type": "event"
 	},
 	{
@@ -273,16 +36,460 @@ export const abi = [
 		"inputs": [
 			{
 				"indexed": false,
-				"name": "product",
+				"internalType": "string",
+				"name": "name",
 				"type": "string"
 			},
 			{
 				"indexed": false,
-				"name": "cooperative",
+				"internalType": "string",
+				"name": "numberPhone",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "cpf",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "cep",
 				"type": "string"
 			}
 		],
-		"name": "nProductor",
+		"name": "nUser",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idAddressUser",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_productName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_value",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_stock",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_unitMeasurement",
+				"type": "string"
+			}
+		],
+		"name": "addProductToProductor",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_id",
+				"type": "string"
+			}
+		],
+		"name": "getProductor",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "nameCompany",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cnpj",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cooperative",
+				"type": "string"
+			},
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "stock",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "unitMeasurement",
+						"type": "string"
+					}
+				],
+				"internalType": "struct AccountSELVA.Product[]",
+				"name": "products",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_id",
+				"type": "string"
+			}
+		],
+		"name": "getUser",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "numberPhone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cpf",
+				"type": "string"
+			},
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "cep",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "numberAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "nameAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "districtAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "cityUfAddress",
+						"type": "string"
+					}
+				],
+				"internalType": "struct AccountSELVA.AddressMap",
+				"name": "addressMap",
+				"type": "tuple"
+			},
+			{
+				"internalType": "bool",
+				"name": "statusAccount",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "createDate",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "listAllProductors",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "nameCompany",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "cnpj",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "cooperative",
+						"type": "string"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "stock",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "unitMeasurement",
+								"type": "string"
+							}
+						],
+						"internalType": "struct AccountSELVA.Product[]",
+						"name": "products",
+						"type": "tuple[]"
+					}
+				],
+				"internalType": "struct AccountSELVA.Productor[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "listAllProducts",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "stock",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "unitMeasurement",
+						"type": "string"
+					}
+				],
+				"internalType": "struct AccountSELVA.Product[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "listAllUsers",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "idAddress",
+						"type": "string"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "numberPhone",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "cpf",
+								"type": "string"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "cep",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "numberAddress",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "nameAddress",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "districtAddress",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "cityUfAddress",
+										"type": "string"
+									}
+								],
+								"internalType": "struct AccountSELVA.AddressMap",
+								"name": "addressMap",
+								"type": "tuple"
+							},
+							{
+								"internalType": "uint256",
+								"name": "createDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "statusAccount",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct AccountSELVA.User",
+						"name": "user",
+						"type": "tuple"
+					}
+				],
+				"internalType": "struct AccountSELVA.UserInfo[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_numberPhone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cpf",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_idAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cep",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_numberAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_nameAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_districtAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cityUfAddress",
+				"type": "string"
+			}
+		],
+		"name": "registerUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idAddressUser",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_nameCompany",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_CNPJ",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cooperative",
+				"type": "string"
+			}
+		],
+		"name": "upProductor",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
 ]
