@@ -133,10 +133,16 @@ body {
     }
 }
 
-#Consulta, #Sobre {
+#Cadastro,
+#Consulta,
+#Sobre {
     display: none;
 }
 
-#informacaousuario, #cadastroProdutor, #produtoLabel, #tableListAllUsers {
+#informacaousuario,
+#cadastroProdutor,
+#produtoLabel,
+#tableListAllUsers,
+#showProductsDiv {
     display: none;
 }

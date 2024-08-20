@@ -36,9 +36,27 @@ registerContract.events.nProductor()
         message: 'Produtor Cadastrado com sucesso!',
         position: "topRight"
     });
-    document.getElementById("nameCompany").value = "";
-    document.getElementById("cooperative").value = "";
-    document.getElementById("cnpj").value = "";
+    let hash = document.getElementById("hashId").value;
+    window.sessionStorage("productRefresh", hash);
+    window.location.reload();
+    // document.getElementById("nameCompany").value = "";
+    // document.getElementById("cooperative").value = "";
+    // document.getElementById("cnpj").value = "";
+
+    // let produto = document.getElementById("product").value;
+    // let valorProduto = document.getElementById("valueProduct").value;
+    // let estoque = document.getElementById("stock").value;
+    // let uniMedida = document.getElementById("uniMedida").value;
+    // registerContract.methods.addProductToProductor(
+    //     hash,
+    //     produto,
+    //     valorProduto,
+    //     estoque,
+    //     uniMedida
+    // ).send({ from: account })
+    // .on('transactionHash', function(hash) {})
+    // .on('receipt', function(receipt) {})
+    // .on('error', function(error, receipt) {});
 })
 .on('error', function(error) {
     $("#load").hide();
@@ -139,17 +157,25 @@ $("#CadastroButton").click(function() {
 /* Leitura Usuário */
 $("#PesquisaButton").click(function() {
     let hashId = $("#hashId").val();
-    console.log("hashId: ", hashId)
     registerContract.methods.getUser(hashId).call({ from: account })
     .then(function(result) {
-        console.log("Result: ", result);
-        
+        let name = "";
+        let lastName = "";
+        if(result.name.split(" ").length <= 2) {
+            name = result.name.split(" ")[0];
+            lastName = result.name.split(" ")[1] || "";
+        } else {
+            name = result.name.split(" ")[0];
+            let nameLength = result.name.split(" ")[0].length;
+            lastName = result.name.substr(nameLength)
+        }
+
         // Atualiza a interface com os dados do usuário
         document.getElementById("ConsultaPesquisa").style.display = "none";
         document.getElementById("informacaousuario").style.display = "block";
         
-        document.getElementById("nameConsulta").value = result.name.split(" ")[0];
-        document.getElementById("lastnameConsulta").value = result.name.split(" ")[1];
+        document.getElementById("nameConsulta").value = name;
+        document.getElementById("lastnameConsulta").value = lastName;
         document.getElementById("cpfConsulta").value = result.cpf;
         document.getElementById("phoneConsulta").value = result.numberPhone;
         document.getElementById("cepConsulta").value = result.addressMap.cep;
@@ -158,11 +184,27 @@ $("#PesquisaButton").click(function() {
         document.getElementById("districtAddressConsulta").value = result.addressMap.districtAddress;
         document.getElementById("cityUfAddressConsulta").value = result.addressMap.cityUfAddress;
         document.getElementById("hashConsulta").value = hashId;
-        
-        document.getElementById("UpProdutorButton").style.display = "block";
+
+        let productor = false;
+        registerContract.methods.listAllProductors().call()
+        .then(function(result) {
+            result.map((pro) => {
+                if(pro.idAddress == hashId) {
+                    productor = true;
+                }
+            });
+
+            if(productor) {
+                document.getElementById("UpProdutorButton").style.display = "none";
+                document.getElementById("showProductsDiv").style.display = "block";
+            } else {
+                document.getElementById("showProductsDiv").style.display = "none";
+                document.getElementById("UpProdutorButton").style.display = "block";
+            }
+        })
+        .catch(function(error) {});
     })
     .catch(function(error) {
-        console.error("Error: ", error);
         iziToast.error({
             title: 'Erro',
             message: 'Erro ao pesquisar usuário!',
@@ -178,15 +220,17 @@ $("#hashConsulta").click(function() {
         message: 'Copiado com sucesso para área de transferência!',
         position: "topRight"
     });
-})
+});
 
 const tableListAllUsers = document.getElementById("tableListAllUsers");
 $("#BuscaTodosUsers").click(function() {
     registerContract.methods.listAllUsers().call()
     .then(function(result) {
-        console.log("result: ", result)
         document.getElementById("ConsultaPesquisa").style.display = "none";
+        document.getElementById("imageBlockchain").style.display = "none";
         document.getElementById("tableListAllUsers").style.display = "block";
+        document.getElementById("tableListAllUsers").classList.remove("col-md-6");
+        document.getElementById("tableListAllUsers").classList.add("col-md-12");
         let idx = 1;
         let tbody = ``;
         tbody = result.map((info) => {
@@ -218,7 +262,11 @@ $("#BuscaTodosUsers").click(function() {
         tableListAllUsers.innerHTML = table;
     })
     .catch(function(error) {
-        console.error("Error:", error);
+        iziToast.error({
+            title: 'Erro',
+            message: 'Erro ao listar usuários!',
+            position: "topRight"
+        });
     });
 });
 
@@ -233,22 +281,81 @@ $("#UpgradeProdutorButton").click(function() {
     } else {
         $("#load").show();
         $("#container").hide();
+        let hashId = document.getElementById("hashId").value;
         let nameCompany = document.getElementById("nameCompany").value;
-        let cooperative = document.getElementById("cooperative").value || "";
+        let cooperative = document.getElementById("cooperative").value;
         let cnpj = document.getElementById("cnpj").value;
-        let produto = document.getElementById("product").value;
-        let valorProduto = document.getElementById("valueProduct").value;
-        let estoque = document.getElementById("stock").value;
-        let uniMedida = document.getElementById("uniMedida").value;
-        let hash = document.getElementById("hashId").value;
+
         registerContract.methods.upProductor(
-            hash,
+            hashId,
             nameCompany,
             cnpj,
             cooperative
         ).send({ from: account })
         .on('transactionHash', function(hash) {})
         .on('receipt', function(receipt) {})
-        .on('error', function(error, receipt) {});
+        .on('error', function(error, receipt) {
+            $("#load").hide();
+            $("#container").show();
+            iziToast.error({
+                title: "Erro",
+                message: "Falha na transação",
+                position: "topRight"
+            });
+        });
     }
 });
+
+const listProducts = document.getElementById("listProducts");
+$("#ShowProductsButton").click(function() {
+    document.getElementById("modalProducts").classList.remove("d-none");
+    document.getElementById("modalProductsButton").click();
+    document.getElementById("formAddProducts").style.display = "none";
+    document.getElementById("listProducts").style.display = "flex";
+			document.getElementById("formAddProducts").classList.add("d-none");
+
+    let hashId = $("#hashId").val();
+    registerContract.methods.getProductor(hashId).call({ from: account })
+    .then(function(result) {
+        document.getElementById("listProducts").style.display = "block";
+        let idx = 1;
+        let tbody = `Sem ativos cadastrados`;
+        if(result?.products.length > 0) {
+            tbody = result.products.map((info) => {
+                return `
+                    <tr>
+                        <th scope="row">${idx++}</th>
+                        <td>${info.name}</td>
+                        <td>${info.value}/${info.unitMeasurement}</td>
+                        <td>${info.stock}</td>
+                    </tr>
+                `
+            }).join("");
+    
+            const table = `
+                <table class="g-3" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Estoque</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tbody}</tbody>
+                </table>
+            `;
+            listProducts.innerHTML = table;
+        } else {
+            listProducts.innerHTML = tbody;
+        }
+
+    })
+    .catch(function(error) {
+        iziToast.error({
+            title: 'Erro',
+            message: 'Erro ao listar ativos!',
+            position: "topRight"
+        });
+    });
+})

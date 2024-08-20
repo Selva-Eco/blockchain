@@ -12,7 +12,7 @@
 	<script src="./assets/js/web3.min.js"></script>
 	<link rel="stylesheet" href="./assets/css/iziToast.min.css">
 </head>
-<body>
+<body style="overflow-y: hidden;">
 	<!-- Spinner -->
 	<div id="load">
 		<div class="sk-cube-grid" id="spinner">
@@ -29,9 +29,10 @@
 	</div>
 
 	<button type="button" id="modalButton" class="d-none" data-bs-toggle="modal" data-bs-target="#modalHash"></button>
+	<button type="button" id="modalProductsButton" class="d-none" data-bs-toggle="modal" data-bs-target="#modalProducts"></button>
 
-	<div class="modal fade modal-dialog-centered d-none" id="modalHash" tabindex="-1" aria-labelledby="modalHash" aria-hidden="true">
-		<div class="modal-dialog">
+	<div class="modal fade d-none" id="modalHash" tabindex="-1" aria-labelledby="modalHash" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="modalHash">Transação bem sucedida!</h1>
@@ -51,36 +52,104 @@
 		</div>
 	</div>
 
+	<div class="modal fade d-none" id="modalProducts" tabindex="-1" aria-labelledby="modalProducts" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="modalProducts">Ativos Naturais da Amazônia</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="listProducts"></div>
+					<form class="row g-3 d-none" id="formAddProducts">
+						<div class="col-md-6">
+							<label for="nameProduct" class="form-label">Nome</label>
+							<input type="text" class="form-control" id="nameProduct">
+						</div>
+						<div class="col-md-6">
+							<label for="valueProduct" class="form-label">Valor</label>
+							<input type="number" class="form-control" id="valueProduct">
+						</div>
+						<div class="col-md-6">
+							<label for="unitMeasurementProduct" class="form-label">Unidade de Medida</label>
+							<!-- <input type="number" class="form-control" id="unitMeasurementProduct"> -->
+							<select class="form-select" aria-label="Selecione" id="unitMeasurementProduct">
+								<option selected>Selecione</option>
+								<option value="Kg">Kg</option>
+								<option value="g">g</option>
+								<option value="L">L</option>
+								<option value="mL">mL</option>
+								<option value="cm">cm</option>
+								<option value="m">m</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<label for="stockProduct" class="form-label">Estoque</label>
+							<input type="number" class="form-control" id="stockProduct">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary" id="showFormAddProducts" onclick="showFormAddProducts()">
+						Adicionar produto
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container" id="container">
-		<header class="d-flex flex-wrap justify-content-center py-3 mb-4">
+		<header class="d-flex flex-wrap justify-content-center py-3 mb-2">
 			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-				<img src="./assets/image/icon-128x128.png" style="width: 20%;" alt="SELVA">
-				<span class="fs-3 mx-3" style="line-height: 35px;"><span class="fs-1 fw-bold fst-italic">SELVA</span> <br> Amazonic Blockchain Ecosystem</span>
+				<!-- <img src="./assets/image/icon-128x128.png" style="width: 40%;" alt="SELVA"> -->
+				<img src="./assets/image/logo_selva_service.svg" style="width: 100%;" alt="SELVA">
+				<!-- <span class="fs-3 mx-3" style="line-height: 35px;"><span class="fs-1 fw-bold fst-italic">SELVA</span> <br> Amazonic Blockchain Ecosystem</span> -->
 			</a>
 			<ul class="nav nav-underline mt-4">
 				<li class="nav-item">
-					<button onclick="showCadastro()" id="linkCadastro" class="nav-link active" aria-current="page">
+					<button onclick="showInicio()" id="linkInicio" class="nav-link active" aria-current="page">
+						Início
+					</button>
+				</li>
+				<li class="nav-item">
+					<button onclick="showCadastro()" id="linkCadastro" class="nav-link">
 						Cadastro
 					</button>
 				</li>
-				<li class="nav-item"><button onclick="showConsulta()" id="linkConsulta" class="nav-link">Consulta</button></li>
-				<li class="nav-item"><button onclick="showSobre()" id="linkSobre" class="nav-link">Sobre</button></li>
+				<li class="nav-item">
+					<button onclick="showConsulta()" id="linkConsulta" class="nav-link">
+						Consulta
+					</button>
+				</li>
+				<li class="nav-item">
+					<button onclick="showSobre()" id="linkSobre" class="nav-link">
+						Sobre
+					</button>
+				</li>
 			</ul>
 		</header>
 
+		<section id="Inicio" class="Inicio col-md-12">
+			<div class="text-center fs-2" style="margin-top: 12rem;">
+				<p>Ferramenta de rastreabilidade da plataforma Selva Service</p>
+				<!-- <p>Rastreabilidade da cadeia produtiva com registro Blockchain</p> -->
+			</div>
+		</section>
+
 		<section id="Cadastro" class="Cadastro col-md-12">
-			<div class="row mt-5">
+			<div class="row mt-2">
 				<div class="col-md-6 imgBlockchain">
-					<img src="./assets/image/blockchain-unscreen.gif" style="width: 100%;" alt="Blockchain">
+					<img src="./assets/image/blockchain-unscreen.gif" style="width: 80%;" alt="Blockchain">
 				</div>
 				<div class="col-md-6">
 					<div class="title text-start greeDark mb-7">
-						<h1>Formulário de Cadastro</h1>
+						<h1>Cadastro Geral</h1>
 					</div>
-					<div class="title text-start grayDark mt-5">
-						<h4>Informações Pessoais</h4>
-					</div>
-					<form class="row g-3 mt-2">
+					<form class="row g-3 mt-2" style="height: 23rem; overflow-y: auto;">
+						<div class="title text-start grayDark mt-5">
+							<h4>Informações Pessoais</h4>
+						</div>
 						<div class="col-md-6">
 							<label for="name" class="form-label">Nome</label>
 							<input type="name" class="form-control" id="name">
@@ -131,8 +200,8 @@
 		
 		<section id="Consulta" class="Consulta col-md-12">
 			<div class="row mt-5">
-				<div class="col-md-6 imgBlockchain">
-					<img src="./assets/image/Blockchain-Color.gif" style="width: 100%;" alt="Blockchain">
+				<div class="col-md-6 imgBlockchain" id="imageBlockchain">
+					<img src="./assets/image/Blockchain-Color.gif" style="width: 80%;" alt="Blockchain">
 				</div>
 				<!-- Input Pesquisa Usuário -->
 				<div class="col-md-6" id="ConsultaPesquisa">
@@ -158,10 +227,10 @@
 					<div class="title text-start greeDark mb-7">
 						<p style="cursor: pointer;" onclick="navConsulta(2)"><i class="bi bi-arrow-left"></i> voltar</p>
 					</div>
-					<div class="title text-start grayDark mt-5">
-						<h4>Informações Pessoais</h4>
-					</div>
-					<form class="row g-3 mt-3">
+					<form class="row g-3 mt-3" style="height: 23rem; overflow-y: auto;">
+						<div class="title text-start grayDark mt-5">
+							<h4>Informações Pessoais</h4>
+						</div>
 						<div class="col-md-6">
 							<label for="nameConsulta" class="form-label">Nome</label>
 							<input type="text" class="form-control" id="nameConsulta" readonly>
@@ -205,12 +274,15 @@
 							<label for="hashConsulta" class="form-label">Hash</label>
 							<input type="text" class="form-control" id="hashConsulta" style="cursor: pointer;" readonly>
 						</div>
-						<div class="col-md-12">
+						<!-- <div class="col-md-12">
 							<label for="produtoLabel" class="form-label">Produto</label>
 							<input type="text" class="form-control" id="produtoLabel">
-						</div>
+						</div> -->
 						<div class="col-12">
 							<button type="button" id="UpProdutorButton" onclick="upProdutor()" class="btn btn-primary">Tornar Produtor</button>
+						</div>
+						<div class="col-12" id="showProductsDiv">
+							<button type="button" id="ShowProductsButton" class="btn btn-primary">Mostrar Produtos</button>
 						</div>
 					</form>
 				</div>
@@ -227,29 +299,29 @@
 							<input type="text" class="form-control" id="nameCompany">
 						</div>
 						<div class="col-md-6">
-							<label for="cooperative" class="form-label">Cooperativa</label>
+							<label for="cooperative" class="form-label">Cooperativa (opcional)</label>
 							<input type="text" class="form-control" id="cooperative">
 						</div>
 						<div class="col-6">
-							<label for="cnpj" class="form-label">CNPJ</label>
+							<label for="cnpj" class="form-label">CNPJ/CPF</label>
 							<input type="text" class="form-control" id="cnpj" maxlength="18" oninput="regexCNPJ(this.value)">
 						</div>
-						<div class="col-md-6">
+						<!-- <div class="col-md-6">
 							<label for="product" class="form-label">Produto</label>
 							<input type="text" class="form-control" id="product">
 						</div>
 						<div class="col-md-6">
-							<label for="valueProduct" class="form-label">Valor do Produto</label>
-							<input type="number" class="form-control" id="valueProduct">
+							<label for="valueProduct" class="form-label">Valor (Separe os centavos por ".")</label>
+							<input type="number" class="form-control" id="valueProduct" placeholder="Ex.: 2.50">
 						</div>
 						<div class="col-md-6">
-							<label for="stock" class="form-label">Estoque</label>
-							<input type="number" class="form-control" id="stock">
+							<label for="stock" class="form-label">Estoque (Separe os centavos por ".")</label>
+							<input type="number" class="form-control" id="stock" placeholder="Ex.: 15.7">
 						</div>
 						<div class="col-md-6">
-							<label for="uniMedida" class="form-label">Unidade de Medida</label>
+							<label for="uniMedida" class="form-label">Unidade de Medida (Kg, g, L, etc...)</label>
 							<input type="text" class="form-control" id="uniMedida">
-						</div>
+						</div> -->
 						<div class="col-12">
 							<button type="button" id="UpgradeProdutorButton" class="btn btn-success" data-swal-template="#UpgradeProdutorButton">Tornar Produtor</button>
 						</div>
@@ -259,7 +331,7 @@
 		</section>
 
 		<section id="Sobre" class="Sobre col-md-12">
-			<div class="row text-center fs-2" style="margin-top: 20%;">
+			<div class="row text-center fs-2" style="margin-top: 12rem;">
 				<p>Sistema Estruturado Legal de Valores Amazônicos - SELVA</p>
 				<p>Ecossistema Blockchain Amazônico</p>
 			</div>
@@ -286,14 +358,24 @@
 
 		/* Regex CNPJ */
 		function regexCNPJ(val) {
-			let newValue = val.replace(/\D/g, '')
-				.replace(/(\d{2})(\d)/, '$1.$2')
+			if(val.length > 14) {
+				let newValue = val.replace(/\D/g, '')
+					.replace(/(\d{2})(\d)/, '$1.$2')
+					.replace(/(\d{3})(\d)/, '$1.$2')
+					.replace(/(\d{3})(\d)/, '$1/$2')
+					.replace(/(\d{4})(\d)/, '$1-$2')
+					.replace(/(-\d{2})\d+?$/, '$1');
+	
+					return document.getElementById("cnpj").value = newValue;
+			} else {
+				let newValue = val.replace(/\D/g, '')
 				.replace(/(\d{3})(\d)/, '$1.$2')
-				.replace(/(\d{3})(\d)/, '$1/$2')
-				.replace(/(\d{4})(\d)/, '$1-$2')
+				.replace(/(\d{3})(\d)/, '$1.$2')
+				.replace(/(\d{3})(\d)/, '$1-$2')
 				.replace(/(-\d{2})\d+?$/, '$1');
 
 				return document.getElementById("cnpj").value = newValue;
+			}
 		}
 
 		/* Regex CNPJ */
@@ -331,12 +413,27 @@
 				return document.getElementById("phone").value = newValue;
 		}
 
+		/* Show Inicio */
+		function showInicio() {
+			document.getElementById("Consulta").style.display = "none";
+			document.getElementById("linkConsulta").classList.remove("active");
+			document.getElementById("Sobre").style.display = "none";
+			document.getElementById("linkSobre").classList.remove("active");
+			document.getElementById("Cadastro").style.display = "none";
+			document.getElementById("linkCadastro").classList.remove("active");
+
+			document.getElementById("Inicio").style.display = "block";
+			document.getElementById("linkInicio").classList.add("active");
+		}
+
 		/* Show Cadastro */
 		function showCadastro() {
 			document.getElementById("Consulta").style.display = "none";
 			document.getElementById("linkConsulta").classList.remove("active");
 			document.getElementById("Sobre").style.display = "none";
 			document.getElementById("linkSobre").classList.remove("active");
+			document.getElementById("Inicio").style.display = "none";
+			document.getElementById("linkInicio").classList.remove("active");
 
 			document.getElementById("Cadastro").style.display = "block";
 			document.getElementById("linkCadastro").classList.add("active");
@@ -348,6 +445,8 @@
 			document.getElementById("linkCadastro").classList.remove("active");
 			document.getElementById("Sobre").style.display = "none";
 			document.getElementById("linkSobre").classList.remove("active");
+			document.getElementById("Inicio").style.display = "none";
+			document.getElementById("linkInicio").classList.remove("active");
 
 			document.getElementById("Consulta").style.display = "block";
 			document.getElementById("linkConsulta").classList.add("active");
@@ -363,6 +462,8 @@
 			document.getElementById("linkCadastro").classList.remove("active");
 			document.getElementById("Consulta").style.display = "none";
 			document.getElementById("linkConsulta").classList.remove("active");
+			document.getElementById("Inicio").style.display = "none";
+			document.getElementById("linkInicio").classList.remove("active");
 
 			document.getElementById("Sobre").style.display = "block";
 			document.getElementById("linkSobre").classList.add("active");
@@ -398,6 +499,7 @@
 
 		function navConsulta(index) {
 			if(index == 2) {
+				document.getElementById("imageBlockchain").style.display = "block";
 				document.getElementById("ConsultaPesquisa").style.display = "block";
 				document.getElementById("informacaousuario").style.display = "none";
 				document.getElementById("tableListAllUsers").style.display = "none";
@@ -406,6 +508,19 @@
 				document.getElementById("cadastroProdutor").style.display = "none";
 			}
 		}
+
+		function showFormAddProducts() {
+			document.getElementById("listProducts").style.display = "none";
+			document.getElementById("formAddProducts").style.display = "flex";
+			document.getElementById("formAddProducts").classList.remove("d-none");
+		}
+
+		if(window.sessionStorage.getItem("productRefresh")) {
+			showConsulta()
+			document.getElementById("hashId").value = window.sessionStorage.getItem("productRefresh");
+			window.sessionStorage.removeItem("productRefresh")
+		}
+
 	</script>
 </body>
 </html>

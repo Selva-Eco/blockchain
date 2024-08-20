@@ -2,7 +2,7 @@
 //endereco muda a cada deploy  
 //==============ALTERAR==============
 // export const endereco = '0x9aC37eec8C2Bb777dD77f5B78093D653C6CDF7e4';
-export const endereco = '0x0adee9bd657127063ee4a60F8DB9CDFBa613777A';
+export const endereco = '0xcED65284084a77B8ba0dB46cbeFA5D26511d3dc0';
 //ABI: o contrato vem no formato JSON para que possa ser interpretado
 //==============P/ ALTERAR, DEPENDE DA MODIFICAÇÃo DO CONTRATO PARA TESTE==============
 //dados(endereco e ABI) do contrato se matém inalterados após o DEPLOY, pois o contrato não poderá sofre mais alterações
@@ -230,18 +230,121 @@ export const abi = [
 				"components": [
 					{
 						"internalType": "string",
-						"name": "nameCompany",
+						"name": "idAddress",
 						"type": "string"
 					},
 					{
-						"internalType": "string",
-						"name": "cnpj",
-						"type": "string"
+						"components": [
+							{
+								"internalType": "string",
+								"name": "nameCompany",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "cnpj",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "cooperative",
+								"type": "string"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "name",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "value",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "stock",
+										"type": "uint256"
+									},
+									{
+										"internalType": "string",
+										"name": "unitMeasurement",
+										"type": "string"
+									}
+								],
+								"internalType": "struct AccountSELVA.Product[]",
+								"name": "products",
+								"type": "tuple[]"
+							}
+						],
+						"internalType": "struct AccountSELVA.Productor",
+						"name": "productor",
+						"type": "tuple"
 					},
 					{
-						"internalType": "string",
-						"name": "cooperative",
-						"type": "string"
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "numberPhone",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "cpf",
+								"type": "string"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "cep",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "numberAddress",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "nameAddress",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "districtAddress",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "cityUfAddress",
+										"type": "string"
+									}
+								],
+								"internalType": "struct AccountSELVA.AddressMap",
+								"name": "addressMap",
+								"type": "tuple"
+							},
+							{
+								"internalType": "uint256",
+								"name": "createDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "statusAccount",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct AccountSELVA.User",
+						"name": "user",
+						"type": "tuple"
 					},
 					{
 						"components": [
@@ -271,7 +374,7 @@ export const abi = [
 						"type": "tuple[]"
 					}
 				],
-				"internalType": "struct AccountSELVA.Productor[]",
+				"internalType": "struct AccountSELVA.ProductorInfo[]",
 				"name": "",
 				"type": "tuple[]"
 			}
