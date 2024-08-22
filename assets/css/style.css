@@ -97,10 +97,57 @@
 }
 
 /* Body */
-
 body {
+    /* overflow-y: hidden; */
+    /* background: #eef1f5; */
+    background-image: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url("/assets/image/9.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#container {
+    height: 100%;
+}
+
+/* Tela Inicial */
+.texts-home {
+    font-size: 4rem;
+    line-height: 6rem;
+}
+
+.text-sol {
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.text-gar {
+    color: #c3e438;
+}
+
+.text-cad {
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    text-decoration: underline;
+    text-decoration-color: #6b700c;
+}
+
+.text-rast {
+    background: #c3e438;
+    padding: 0 0.5rem;
+    margin-left: .4rem;
+}
+
+.text-ts {
     background: #eef1f5;
-    /* url(../image/blocks_2.svg) no-repeat 7% -50% */
+    padding: 0 0.5rem;
+    margin-left: .4rem;
+}
+
+.logoLink {
+    background: #ffffff;
+    padding: 1rem 0.5rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .greeDark {
@@ -112,11 +159,16 @@ body {
 }
 
 .nav-link {
-    color: #6b700c;
+    color: #eef1f5;
+    font-size: 1.2rem;
+}
+
+.nav-link.active {
+    color: #9fa709 !important;
 }
 
 .nav-link:hover {
-    color: #4e5200;
+    color: #b1b1b1;
 }
 
 .imgBlockchain img {
@@ -134,9 +186,27 @@ body {
 }
 
 #Cadastro,
-#Consulta,
+#Consulta {
+    display: none;
+    background-color: #eef1f5;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+#informacaousuario {
+    background-color: #eef1f5;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
 #Sobre {
     display: none;
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .heigthText {
@@ -146,7 +216,23 @@ body {
 #informacaousuario,
 #cadastroProdutor,
 #produtoLabel,
-#tableListAllUsers,
 #showProductsDiv {
     display: none;
+}
+
+#tableListAllUsers {
+    display: none;
+    height: 100vh;
+}
+
+#footer {
+    position: relative;
+    text-align: center;
+    margin: 2rem;
+    color: #FFFFFF;
+}
+
+#footer .linkSELVA {
+    text-decoration: none;
+    color: #c3e438;
 }

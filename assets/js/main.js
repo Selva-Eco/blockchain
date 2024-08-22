@@ -153,7 +153,7 @@ $("#copyHash").click(async function() {
     setTimeout(() => {
         document.getElementById("copyHash").innerHTML = "Copiar";
     }, 1000);
-})
+});
 
 /* Cadastro Usuário */
 $("#CadastroButton").click(function() {
@@ -161,7 +161,13 @@ $("#CadastroButton").click(function() {
         document.getElementById("name").value.length == 0 ||
         document.getElementById("lastname").value.length == 0 ||
         document.getElementById("cpf").value.length == 0 ||
-        document.getElementById("phone").value.length == 0
+        document.getElementById("phone").value.length == 0 ||
+        document.getElementById("cep").value.length == 0 ||
+        document.getElementById("numberAddress").value.length == 0 ||
+        document.getElementById("nameAddress").value.length == 0 ||
+        document.getElementById("districtAddress").value.length == 0 ||
+        document.getElementById("cityUfAddress").value.length == 0 ||
+        document.querySelector("#acceptTerms").checked == false
     ) {
         iziToast.warning({
             title: 'Aviso',

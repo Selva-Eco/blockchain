@@ -12,7 +12,7 @@
 	<script src="./assets/js/web3.min.js"></script>
 	<link rel="stylesheet" href="./assets/css/iziToast.min.css">
 </head>
-<body style="overflow-y: hidden;">
+<body>
 	<!-- Spinner -->
 	<div id="load">
 		<div class="sk-cube-grid" id="spinner">
@@ -103,8 +103,8 @@
 	</div>
 
 	<div class="container" id="container">
-		<header class="d-flex flex-wrap justify-content-center py-3 mb-2">
-			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+		<header class="d-flex flex-wrap justify-content-center mb-2">
+			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none logoLink">
 				<!-- <img src="./assets/image/icon-128x128.png" style="width: 40%;" alt="SELVA"> -->
 				<img src="./assets/image/logo_selva_service.svg" style="width: 100%;" alt="SELVA">
 				<!-- <span class="fs-3 mx-3" style="line-height: 35px;"><span class="fs-1 fw-bold fst-italic">SELVA</span> <br> Amazonic Blockchain Ecosystem</span> -->
@@ -134,14 +134,21 @@
 		</header>
 
 		<section id="Inicio" class="Inicio col-md-12 d-flex justify-content-center align-items-center heigthText">
-			<div class="text-center fs-2">
-				<p>Ferramenta de rastreabilidade da plataforma Selva Service</p>
+			<div class="text-center texts-home">
+				<div class="d-flex mb-2">
+					<strong class="text-sol">Solução </strong> <span class="text-rast"> de rastreabilidade</span> <span class="text-white">&</span>
+				</div>
+				<div class="d-flex">
+					<p class="text-gar">garantia de </p> <span class="text-ts">transparência e segurança</span>
+				</div>
+				<div class="text-cad">em cada etapa da cadeia produtiva</div>
+				<!-- <p>Ferramenta de rastreabilidade da plataforma SELVA SERVICE</p> -->
 				<!-- <p>Rastreabilidade da cadeia produtiva com registro Blockchain</p> -->
 			</div>
 		</section>
 
 		<section id="Cadastro" class="Cadastro col-md-12">
-			<div class="row mt-2">
+			<div class="row mt-2 align-items-center">
 				<div class="col-md-6 imgBlockchain">
 					<img src="./assets/image/blockchain-unscreen.gif" style="width: 80%;" alt="Blockchain">
 				</div>
@@ -149,7 +156,7 @@
 					<div class="title text-start greeDark mb-7">
 						<h1>Cadastro Geral</h1>
 					</div>
-					<form class="row g-3 mt-2" style="height: 65%; overflow-y: auto;">
+					<form class="row g-3 mt-2">
 						<div class="title text-start grayDark mt-5">
 							<h4>Informações Pessoais</h4>
 						</div>
@@ -209,9 +216,9 @@
 		</section>
 		
 		<section id="Consulta" class="Consulta col-md-12">
-			<div class="row mt-5">
+			<div class="row mt-5 align-items-center">
 				<div class="col-md-6 imgBlockchain" id="imageBlockchain">
-					<img src="./assets/image/Blockchain-Color.gif" style="width: 80%;" alt="Blockchain">
+					<img src="./assets/image/Blockchain-Color.gif" style="width: 70%;" alt="Blockchain">
 				</div>
 				<!-- Input Pesquisa Usuário -->
 				<div class="col-md-6" id="ConsultaPesquisa">
@@ -237,7 +244,7 @@
 					<div class="title text-start greeDark mb-7">
 						<p style="cursor: pointer;" onclick="navConsulta(2)"><i class="bi bi-arrow-left"></i> voltar</p>
 					</div>
-					<form class="row g-3 mt-3" style="height: 65%; overflow-y: auto;">
+					<form class="row g-3 mt-3">
 						<div class="title text-start grayDark mt-5">
 							<h4>Informações Pessoais</h4>
 						</div>
@@ -316,22 +323,6 @@
 							<label for="cnpj" class="form-label">CNPJ/CPF</label>
 							<input type="text" class="form-control" id="cnpj" maxlength="18" oninput="regexCNPJ(this.value)">
 						</div>
-						<!-- <div class="col-md-6">
-							<label for="product" class="form-label">Produto</label>
-							<input type="text" class="form-control" id="product">
-						</div>
-						<div class="col-md-6">
-							<label for="valueProduct" class="form-label">Valor (Separe os centavos por ".")</label>
-							<input type="number" class="form-control" id="valueProduct" placeholder="Ex.: 2.50">
-						</div>
-						<div class="col-md-6">
-							<label for="stock" class="form-label">Estoque (Separe os centavos por ".")</label>
-							<input type="number" class="form-control" id="stock" placeholder="Ex.: 15.7">
-						</div>
-						<div class="col-md-6">
-							<label for="uniMedida" class="form-label">Unidade de Medida (Kg, g, L, etc...)</label>
-							<input type="text" class="form-control" id="uniMedida">
-						</div> -->
 						<div class="col-12">
 							<button type="button" id="UpgradeProdutorButton" class="btn btn-success" data-swal-template="#UpgradeProdutorButton">Tornar Produtor</button>
 						</div>
@@ -346,6 +337,12 @@
 				<p>Ecossistema Blockchain Amazônico</p>
 			</div>
 		</section>
+
+		<footer class="footer" id="footer">
+			<div>
+				Saiba mais no nosso site <a href="https://selva.eco.br" target="_blank" class="linkSELVA">SELVA</a>
+			</div>
+		</footer>
 	</div>
 
 	<!-- ========     JQUERY          ======== -->
