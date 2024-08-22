@@ -57,7 +57,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="modalProducts">Ativos Naturais da Amazônia</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="btn-close" id="closeModalProducts" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<div id="listProducts"></div>
@@ -93,6 +93,9 @@
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 					<button type="button" class="btn btn-primary" id="showFormAddProducts" onclick="showFormAddProducts()">
 						Adicionar produto
+					</button>
+					<button type="button" class="btn btn-success d-none" id="buttonAddProducts">
+						Salvar
 					</button>
 				</div>
 			</div>
@@ -130,8 +133,8 @@
 			</ul>
 		</header>
 
-		<section id="Inicio" class="Inicio col-md-12">
-			<div class="text-center fs-2" style="margin-top: 12rem;">
+		<section id="Inicio" class="Inicio col-md-12 d-flex justify-content-center align-items-center heigthText">
+			<div class="text-center fs-2">
 				<p>Ferramenta de rastreabilidade da plataforma Selva Service</p>
 				<!-- <p>Rastreabilidade da cadeia produtiva com registro Blockchain</p> -->
 			</div>
@@ -146,7 +149,7 @@
 					<div class="title text-start greeDark mb-7">
 						<h1>Cadastro Geral</h1>
 					</div>
-					<form class="row g-3 mt-2" style="height: 23rem; overflow-y: auto;">
+					<form class="row g-3 mt-2" style="height: 65%; overflow-y: auto;">
 						<div class="title text-start grayDark mt-5">
 							<h4>Informações Pessoais</h4>
 						</div>
@@ -189,6 +192,13 @@
 							<label for="cityUfAddress" class="form-label">Cidade/UF</label>
 							<input type="text" class="form-control" id="cityUfAddress">
 						</div>
+						<div class="col-md-12">
+							<input class="form-check-input" type="checkbox" value="" id="acceptTerms">
+							<label for="acceptTerms" class="form-check-label">
+								Aceito os <a href="https://selva.eco.br/lgpd.html" target="_blank">Termos de Uso e Política de Privacidade</a>
+							</label>
+							<!-- <input type="text" class="form-control" id="acceptTerms"> -->
+						</div>
 						<input type="hidden" class="form-control" id="hash" readonly>
 						<div class="col-12 d-flex justify-content-end">
 							<button type="button" id="CadastroButton" class="btn btn-success" data-swal-template="#cadastro">Cadastrar</button>
@@ -205,7 +215,7 @@
 				</div>
 				<!-- Input Pesquisa Usuário -->
 				<div class="col-md-6" id="ConsultaPesquisa">
-					<div class="title text-center greeDark mb-7">
+					<div class="title text-start greeDark mb-7">
 						<h1>Consulta</h1>
 					</div>
 					<form class="row g-3 mt-5">
@@ -227,7 +237,7 @@
 					<div class="title text-start greeDark mb-7">
 						<p style="cursor: pointer;" onclick="navConsulta(2)"><i class="bi bi-arrow-left"></i> voltar</p>
 					</div>
-					<form class="row g-3 mt-3" style="height: 23rem; overflow-y: auto;">
+					<form class="row g-3 mt-3" style="height: 65%; overflow-y: auto;">
 						<div class="title text-start grayDark mt-5">
 							<h4>Informações Pessoais</h4>
 						</div>
@@ -330,8 +340,8 @@
 			</div>
 		</section>
 
-		<section id="Sobre" class="Sobre col-md-12">
-			<div class="row text-center fs-2" style="margin-top: 12rem;">
+		<section id="Sobre" class="Sobre col-md-12 justify-content-center align-items-center heigthText">
+			<div class="row text-center fs-2">
 				<p>Sistema Estruturado Legal de Valores Amazônicos - SELVA</p>
 				<p>Ecossistema Blockchain Amazônico</p>
 			</div>
@@ -422,7 +432,7 @@
 			document.getElementById("Cadastro").style.display = "none";
 			document.getElementById("linkCadastro").classList.remove("active");
 
-			document.getElementById("Inicio").style.display = "block";
+			document.getElementById("Inicio").style.display = "flex";
 			document.getElementById("linkInicio").classList.add("active");
 		}
 
@@ -434,6 +444,7 @@
 			document.getElementById("linkSobre").classList.remove("active");
 			document.getElementById("Inicio").style.display = "none";
 			document.getElementById("linkInicio").classList.remove("active");
+			document.getElementById("Inicio").classList.remove("d-flex");
 
 			document.getElementById("Cadastro").style.display = "block";
 			document.getElementById("linkCadastro").classList.add("active");
@@ -447,6 +458,7 @@
 			document.getElementById("linkSobre").classList.remove("active");
 			document.getElementById("Inicio").style.display = "none";
 			document.getElementById("linkInicio").classList.remove("active");
+			document.getElementById("Inicio").classList.remove("d-flex");
 
 			document.getElementById("Consulta").style.display = "block";
 			document.getElementById("linkConsulta").classList.add("active");
@@ -464,8 +476,9 @@
 			document.getElementById("linkConsulta").classList.remove("active");
 			document.getElementById("Inicio").style.display = "none";
 			document.getElementById("linkInicio").classList.remove("active");
+			document.getElementById("Inicio").classList.remove("d-flex");
 
-			document.getElementById("Sobre").style.display = "block";
+			document.getElementById("Sobre").style.display = "flex";
 			document.getElementById("linkSobre").classList.add("active");
 		}
 
@@ -513,14 +526,9 @@
 			document.getElementById("listProducts").style.display = "none";
 			document.getElementById("formAddProducts").style.display = "flex";
 			document.getElementById("formAddProducts").classList.remove("d-none");
+			document.getElementById("showFormAddProducts").classList.add("d-none");
+			document.getElementById("buttonAddProducts").classList.remove("d-none");
 		}
-
-		if(window.sessionStorage.getItem("productRefresh")) {
-			showConsulta()
-			document.getElementById("hashId").value = window.sessionStorage.getItem("productRefresh");
-			window.sessionStorage.removeItem("productRefresh")
-		}
-
 	</script>
 </body>
 </html>

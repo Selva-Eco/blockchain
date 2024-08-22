@@ -2,11 +2,44 @@
 //endereco muda a cada deploy  
 //==============ALTERAR==============
 // export const endereco = '0x9aC37eec8C2Bb777dD77f5B78093D653C6CDF7e4';
-export const endereco = '0xcED65284084a77B8ba0dB46cbeFA5D26511d3dc0';
+export const endereco = '0x2E70E712413740d973D1b04C9e01f63C2a6e3688';
 //ABI: o contrato vem no formato JSON para que possa ser interpretado
 //==============P/ ALTERAR, DEPENDE DA MODIFICAÇÃo DO CONTRATO PARA TESTE==============
 //dados(endereco e ABI) do contrato se matém inalterados após o DEPLOY, pois o contrato não poderá sofre mais alterações
 export const abi = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idAddressUser",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_productName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_value",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_stock",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_unitMeasurement",
+				"type": "string"
+			}
+		],
+		"name": "addProductToProductor",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -66,31 +99,79 @@ export const abi = [
 		"inputs": [
 			{
 				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_numberPhone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cpf",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_idAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cep",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_numberAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_nameAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_districtAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cityUfAddress",
+				"type": "string"
+			}
+		],
+		"name": "registerUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
 				"name": "_idAddressUser",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "_productName",
+				"name": "_nameCompany",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_value",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_stock",
-				"type": "uint256"
 			},
 			{
 				"internalType": "string",
-				"name": "_unitMeasurement",
+				"name": "_CNPJ",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cooperative",
 				"type": "string"
 			}
 		],
-		"name": "addProductToProductor",
+		"name": "upProductor",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -512,87 +593,6 @@ export const abi = [
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_numberPhone",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_cpf",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_idAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_cep",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_numberAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_nameAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_districtAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_cityUfAddress",
-				"type": "string"
-			}
-		],
-		"name": "registerUser",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_idAddressUser",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_nameCompany",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_CNPJ",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_cooperative",
-				"type": "string"
-			}
-		],
-		"name": "upProductor",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

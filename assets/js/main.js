@@ -8,6 +8,10 @@ conectar();
 let registerContract = new web3.eth.Contract(abi, endereco);
 let account = window.sessionStorage.getItem("account");
 
+function desactiveCheck(el) {
+    el.checked = false;
+}
+
 // Monitorar o evento nUser
 registerContract.events.nUser()
 .on('data', function(event) {
@@ -16,6 +20,16 @@ registerContract.events.nUser()
     $("#modalHash").removeClass("d-none");
     document.getElementById("hashText").innerHTML = window.sessionStorage.getItem("hashText");
     $("#modalButton").click();
+    document.getElementById("name").value = "";
+    document.getElementById("lastname").value = "";
+    document.getElementById("cpf").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("cep").value = "";
+    document.getElementById("numberAddress").value = "";
+    document.getElementById("nameAddress").value = "";
+    document.getElementById("districtAddress").value = "";
+    document.getElementById("cityUfAddress").value = "";
+    desactiveCheck(document.querySelector("#acceptTerms"));
 })
 .on('error', function(error) {
     $("#load").hide();
@@ -37,26 +51,67 @@ registerContract.events.nProductor()
         position: "topRight"
     });
     let hash = document.getElementById("hashId").value;
-    window.sessionStorage("productRefresh", hash);
+    window.sessionStorage.setItem("productRefresh", hash);
     window.location.reload();
-    // document.getElementById("nameCompany").value = "";
-    // document.getElementById("cooperative").value = "";
-    // document.getElementById("cnpj").value = "";
+    document.getElementById("nameCompany").value = "";
+    document.getElementById("cooperative").value = "";
+    document.getElementById("cnpj").value = "";
 
-    // let produto = document.getElementById("product").value;
-    // let valorProduto = document.getElementById("valueProduct").value;
-    // let estoque = document.getElementById("stock").value;
-    // let uniMedida = document.getElementById("uniMedida").value;
-    // registerContract.methods.addProductToProductor(
-    //     hash,
-    //     produto,
-    //     valorProduto,
-    //     estoque,
-    //     uniMedida
-    // ).send({ from: account })
-    // .on('transactionHash', function(hash) {})
-    // .on('receipt', function(receipt) {})
-    // .on('error', function(error, receipt) {});
+    let hashId = $("#hashId").val();
+    registerContract.methods.getUser(hashId).call({ from: account })
+    .then(function(result) {
+        let name = "";
+        let lastName = "";
+        if(result.name.split(" ").length <= 2) {
+            name = result.name.split(" ")[0];
+            lastName = result.name.split(" ")[1] || "";
+        } else {
+            name = result.name.split(" ")[0];
+            let nameLength = result.name.split(" ")[0].length;
+            lastName = result.name.substr(nameLength)
+        }
+
+        // Atualiza a interface com os dados do usuário
+        document.getElementById("ConsultaPesquisa").style.display = "none";
+        document.getElementById("informacaousuario").style.display = "block";
+        
+        document.getElementById("nameConsulta").value = name;
+        document.getElementById("lastnameConsulta").value = lastName;
+        document.getElementById("cpfConsulta").value = result.cpf;
+        document.getElementById("phoneConsulta").value = result.numberPhone;
+        document.getElementById("cepConsulta").value = result.addressMap.cep;
+        document.getElementById("numberAddressConsulta").value = result.addressMap.numberAddress;
+        document.getElementById("nameAddressConsulta").value = result.addressMap.nameAddress;
+        document.getElementById("districtAddressConsulta").value = result.addressMap.districtAddress;
+        document.getElementById("cityUfAddressConsulta").value = result.addressMap.cityUfAddress;
+        document.getElementById("hashConsulta").value = hashId;
+
+        let productor = false;
+        registerContract.methods.listAllProductors().call()
+        .then(function(result) {
+            result.map((pro) => {
+                if(pro.idAddress == hashId) {
+                    productor = true;
+                }
+            });
+
+            if(productor) {
+                document.getElementById("UpProdutorButton").style.display = "none";
+                document.getElementById("showProductsDiv").style.display = "block";
+            } else {
+                document.getElementById("showProductsDiv").style.display = "none";
+                document.getElementById("UpProdutorButton").style.display = "block";
+            }
+        })
+        .catch(function(error) {});
+    })
+    .catch(function(error) {
+        iziToast.error({
+            title: 'Erro',
+            message: 'Erro ao pesquisar usuário!',
+            position: "topRight"
+        });
+    });
 })
 .on('error', function(error) {
     $("#load").hide();
@@ -358,4 +413,48 @@ $("#ShowProductsButton").click(function() {
             position: "topRight"
         });
     });
-})
+});
+
+$("#buttonAddProducts").click(function() {
+    if (document.getElementById("hashId").value.length == 0) {
+        iziToast.warning({
+            title: 'Aviso',
+            message: "O produtor precisa ser um usuário para continuar...",
+            position: "topRight"
+        });
+    } else {
+        let hashId = document.getElementById("hashId").value;
+        let nameProduct = document.getElementById("nameProduct").value;
+        let valueProduct = document.getElementById("valueProduct").value;
+        let unitMeasurementProduct = document.getElementById("unitMeasurementProduct").value;
+        let stockProduct = document.getElementById("stockProduct").value;
+
+        registerContract.methods.addProductToProductor(
+            hashId,
+            nameProduct,
+            valueProduct,
+            stockProduct,
+            unitMeasurementProduct,
+        ).send({ from: account })
+        .on('transactionHash', function(hash) {})
+        .on('receipt', function(receipt) {
+            document.getElementById("closeModalProducts").click();
+            iziToast.success({
+                title: "Transação bem sucedida",
+                message: "Ativo adicionado com sucesso!",
+                position: "topRight"
+            });
+            document.getElementById("buttonAddProducts").classList.add("d-none");
+            document.getElementById("showFormAddProducts").classList.remove("d-none");
+        })
+        .on('error', function(error, receipt) {
+            $("#load").hide();
+            $("#container").show();
+            iziToast.error({
+                title: "Erro",
+                message: "Falha na transação",
+                position: "topRight"
+            });
+        });
+    }
+});
